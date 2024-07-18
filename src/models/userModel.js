@@ -44,4 +44,38 @@ class User extends IUser {
             throw new Error('ERROR AL REGISTRAR AL NUEVO USUARIO')
         }
     }
+
+    static async verifiyPassword (password, passwordBD) {
+        return await bcrypt.compare(password, passwordBD)
+    } 
+
+    static async findUser (email) {
+        try {
+            const query = 'SELECT * FROM usuarios WHERE usu_email = ?'
+            const userDoc = await con.query(query, [email])
+
+                if (userDoc.length > 0) {
+                    const newUser = new User (
+                        userDoc[0].user_id,
+                        userDoc[0].user_nickname,
+                        userDoc[0].user_nombre,
+                        userDoc[0].user_paterno,
+                        userDoc[0].user_materno,
+                        userDoc[0].user_nacimiento,
+                        userDoc[0].user_password,
+                        userDoc[0].user_genero,
+                        userDoc[0].user_correo,
+                        userDoc[0].user_telefono
+                    )
+                    return newUser
+                }
+                return null
+        }
+        catch(err) {
+            console.log('Error => ', err)
+            throw new Error('NO SE ENCONTRO AL USUARIO')
+        }
+    }
+
+    
 }
