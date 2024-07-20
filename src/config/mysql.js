@@ -8,7 +8,7 @@ const conection = mysql.createPool(
         host: 'localhost',
         user: 'root',
         password: 'password564',
-        database: 'valorantshop'
+        database: 'valorant'
     }
 )
 

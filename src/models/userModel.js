@@ -1,3 +1,4 @@
+const { log } = require('util')
 const con = require('../config/mysql')
 const IUser = require('../interfaces/IUser')
 const bcrypt = require('bcrypt')
@@ -77,5 +78,35 @@ class User extends IUser {
         }
     }
 
-    
+    static async updateUser (id , nickname, nombre, paterno, materno, nacimiento, genero, correo, telefono) {
+        try {
+            const sql = `UPDATE usuarios
+                    SET usu_nickname = ?, usu_nombre = ?, usu_paterno = ?, usu_materno = ?, usu_nacimiento = ?,
+                    usu_genero = ?, usu_correo = ?, usu_telefono = ? 
+                    WHERE usu_id = ? `
+            
+            const userDoc = await con.query(sql, [nickname, nombre, paterno, materno, nacimiento, genero, correo, telefono])
+
+            if(userDoc.length > 0) {
+                const newUser = new User (
+                    userDoc[0].user_id,
+                    userDoc[0].user_nickname,
+                    userDoc[0].user_nombre,
+                    userDoc[0].user_paterno,
+                    userDoc[0].user_materno,
+                    userDoc[0].user_nacimiento,
+                    userDoc[0].user_genero,
+                    userDoc[0].user_correo,
+                    userDoc[0].user_telefono
+                )
+                return newUser
+            }
+            return null
+
+        } catch (error) {
+            console.error('ERROR AL ACTUALIZAR USUARIO: ', error);
+        }
+    }
 }
+
+module.exports = User

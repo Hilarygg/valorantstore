@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtooken')
-const User = rquire('../models/userModel')
+const jwt = require('jsonwebtoken')
+const User = require('../models/userModel')
 require('dotenv').config
 
 const login = async (req, res) => {
@@ -41,3 +41,5 @@ const login = async (req, res) => {
         })
     }
 }
+
+module.exports = { login }
