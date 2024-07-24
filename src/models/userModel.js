@@ -4,7 +4,7 @@ const IUser = require('../interfaces/IUser')
 const bcrypt = require('bcrypt')
 
 class User extends IUser {
-    constructor( id, nickname, nombre, paterno, materno, nacimiento, password, genero, correo, telefono) {
+    constructor( id, nickname, nombre, paterno, materno, nacimiento, password, genero, email, telefono) {
         super()
         this.id = id
         this.nickname = nickname
@@ -14,11 +14,11 @@ class User extends IUser {
         this.nacimiento = nacimiento
         this.password = password
         this.genero = genero
-        this.correo = correo
+        this.email = email
         this.telefono = telefono
     }
 
-    static async createUser (nickname, nombre, paterno, materno, nacimiento, password, genero, correo, telefono) {
+    static async createUser (nickname, nombre, paterno, materno, nacimiento, password, genero, email, telefono) {
         try {
             const hash = await bcrypt.hash(password, 10)
             const query = 'INSERT INTO `usuario` ' +
@@ -33,11 +33,11 @@ class User extends IUser {
             nacimiento,
             hash,
             genero,
-            correo,
+            email,
             telefono
         ])
 
-        return new User(nickname, nombre, paterno, materno, nacimiento, password, genero, correo, telefono)
+        return new User(nickname, nombre, paterno, materno, nacimiento, password, genero, email, telefono)
 
         }
         catch (err) {
@@ -52,7 +52,7 @@ class User extends IUser {
 
     static async findUser (email) {
         try {
-            const query = 'SELECT * FROM usuarios WHERE usu_email = ?'
+            const query = 'SELECT * FROM usuario WHERE usu_correo = ?'
             const userDoc = await con.query(query, [email])
 
                 if (userDoc.length > 0) {
@@ -65,7 +65,7 @@ class User extends IUser {
                         userDoc[0].user_nacimiento,
                         userDoc[0].user_password,
                         userDoc[0].user_genero,
-                        userDoc[0].user_correo,
+                        userDoc[0].user_email,
                         userDoc[0].user_telefono
                     )
                     return newUser
@@ -78,14 +78,14 @@ class User extends IUser {
         }
     }
 
-    static async updateUser (id , nickname, nombre, paterno, materno, nacimiento, genero, correo, telefono) {
+    static async updateUser (id , nickname, nombre, paterno, materno, nacimiento, genero, email, telefono) {
         try {
-            const sql = `UPDATE usuarios
+            const sql = `UPDATE usuario
                     SET usu_nickname = ?, usu_nombre = ?, usu_paterno = ?, usu_materno = ?, usu_nacimiento = ?,
                     usu_genero = ?, usu_correo = ?, usu_telefono = ? 
                     WHERE usu_id = ? `
             
-            const userDoc = await con.query(sql, [nickname, nombre, paterno, materno, nacimiento, genero, correo, telefono])
+            const userDoc = await con.query(sql, [nickname, nombre, paterno, materno, nacimiento, genero, email, telefono])
 
             if(userDoc.length > 0) {
                 const newUser = new User (
@@ -96,7 +96,7 @@ class User extends IUser {
                     userDoc[0].user_materno,
                     userDoc[0].user_nacimiento,
                     userDoc[0].user_genero,
-                    userDoc[0].user_correo,
+                    userDoc[0].user_email,
                     userDoc[0].user_telefono
                 )
                 return newUser
