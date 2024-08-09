@@ -10,8 +10,8 @@ app.use(express.json())
 
 app.use('/api/auth', routes)
 
-const PORT = process.env.PORT || 6010
+const PORT = process.env.PORT || 8000
 
 app.listen(PORT, () => {
     console.log(`Server running in: ${PORT}`)
-})
+})      

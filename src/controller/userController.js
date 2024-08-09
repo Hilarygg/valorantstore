@@ -76,6 +76,7 @@ const signUp = async(req, res) => {
         const { nickname, nombre, paterno, materno, nacimiento, password, genero, email, telefono } = req.body
 
         const existingEmail = await User.findUser(email)
+
         if (existingEmail) {
             return res.status(400).json({
                 message: 'EMAIL YA ESTA REGISTRADO' ,

@@ -57,16 +57,16 @@ class User extends IUser {
 
                 if (userDoc.length > 0) {
                     const newUser = new User (
-                        userDoc[0].user_id,
-                        userDoc[0].user_nickname,
-                        userDoc[0].user_nombre,
-                        userDoc[0].user_paterno,
-                        userDoc[0].user_materno,
-                        userDoc[0].user_nacimiento,
-                        userDoc[0].user_password,
-                        userDoc[0].user_genero,
-                        userDoc[0].user_email,
-                        userDoc[0].user_telefono
+                        userDoc[0].usu_id,
+                        userDoc[0].usu_nickname,
+                        userDoc[0].usu_nombre,
+                        userDoc[0].usu_paterno,
+                        userDoc[0].usu_materno,
+                        userDoc[0].usu_nacimiento,
+                        userDoc[0].usu_password,
+                        userDoc[0].usu_genero,
+                        userDoc[0].usu_correo,
+                        userDoc[0].usu_telefono
                     )
                     return newUser
                 }
@@ -89,15 +89,15 @@ class User extends IUser {
 
             if(userDoc.length > 0) {
                 const newUser = new User (
-                    userDoc[0].user_id,
-                    userDoc[0].user_nickname,
-                    userDoc[0].user_nombre,
-                    userDoc[0].user_paterno,
-                    userDoc[0].user_materno,
-                    userDoc[0].user_nacimiento,
-                    userDoc[0].user_genero,
-                    userDoc[0].user_email,
-                    userDoc[0].user_telefono
+                    userDoc[0].usu_id,
+                    userDoc[0].usu_nickname,
+                    userDoc[0].usu_nombre,
+                    userDoc[0].usu_paterno,
+                    userDoc[0].usu_materno,
+                    userDoc[0].usu_nacimiento,
+                    userDoc[0].usu_genero,
+                    userDoc[0].usu_email,
+                    userDoc[0].usu_telefono
                 )
                 return newUser
             }
